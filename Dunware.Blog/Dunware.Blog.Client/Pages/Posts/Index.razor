@@ -1,0 +1,72 @@
+@page "/posts/index"
+@inject HttpClient Http;
+@using Dunware.Blog.Client.Components
+@using Dunware.Blog.Client.Models
+@rendermode InteractiveAuto
+@inject NavigationManager Navigation
+
+
+<PageTitle>Posts</PageTitle>
+
+<h2 class="text-2xl font-bold text-center my-4">Últimos artículos</h2>
+
+<div class="grid gr id-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center items-center">
+@foreach (var post in posts)
+{
+    var contenido = post.Contenido.Length > 100 ? post.Contenido.Substring(0, 100) + "..." : post.Contenido;
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@post.Titulo</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">@contenido</p>
+        <Button ColorType="primary" @onclick="(MouseEventArgs e) => handleReadMore(post.Slug)">
+            Leer más...
+        </Button>
+    </div>
+}
+</div>
+
+@if (isLoading)
+{
+    <p class="text-center text-gray-500">Cargando posts...</p>
+}
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p class="text-center text-red-500">@errorMessage</p>
+}
+
+@code {
+    private List<Post> posts = new List<Post>();
+    private bool isLoading = true;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isLoading = true;
+            var response = await Http.GetAsync("/api/post");
+            if (response.IsSuccessStatusCode)
+            {
+                posts = await response.Content.ReadFromJsonAsync<List<Post>>();
+                isLoading = false;
+            }
+            else
+            {
+                errorMessage = "Error al obtener los posts: " + response.ReasonPhrase;
+                isLoading = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Error al obtener los posts: " + ex.Message;
+            isLoading = false;
+        }
+    }
+
+    private void handleReadMore(string slug)
+    {
+        Navigation.NavigateTo($"/posts/details/{slug}");
+    }
+
+}

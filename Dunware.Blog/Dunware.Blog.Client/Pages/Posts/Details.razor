@@ -1,0 +1,51 @@
+@page "/posts/details/{Slug}"
+@using Dunware.Blog.Client.Models
+
+@if(!string.IsNullOrEmpty(ErrorMessage))
+{
+   <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">@ErrorMessage</span>
+    </div>
+}
+else
+{
+    <div class="w-full max-w-screen-xxl flex md:flex-row flex-col gap-2">
+
+        <div
+            class="block w-full md:w-3/5 lg:w-4/5 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+
+            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@post.Titulo</h2>
+            <p class="font-normal text-gray-700 dark:text-gray-400">@post.Contenido</p>
+        </div>
+
+        <div class="block w-full md:w-2/5 lg:w-1/5 p-6 bg-white border border-gray-200 rounded-lg shadow">
+            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Comentarios</h2>
+        </div>
+
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+
+    [Inject]
+    public HttpClient Http { get; set; }
+
+    private Post post { get; set; } = new Post();
+
+    private string ErrorMessage { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            post = await Http.GetFromJsonAsync<Post>($"/api/post/{Slug}");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = "Error al obtener el post: " + ex.Message;
+        }
+    }
+}

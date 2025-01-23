@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./Dunware.Blog/wwwroot/styles.css -o ./Dunware.Blog/wwwroot/app.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "flowbite": "^2.5.2"
+  }
+}

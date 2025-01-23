@@ -1,0 +1,31 @@
+<button class="@bg text-white py-2 px-4 rounded-full" @onclick="OnClick">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public string ColorType { get; set; } = "primary";
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    private string bg = "bg-primary text-primary-text hover:bg-primary-dark"; // Valor por defecto
+
+    protected override void OnInitialized()
+    {
+        bg = ColorType switch
+        {
+            "primary" => "bg-primary text-primary-text hover:bg-primary-dark",
+            "secondary" => "bg-secondary text-secondary-text hover:bg-secondary-dark",
+            "tertiary" => "bg-tertiary text-tertiary-text hover:bg-tertiary-dark",
+            "danger" => "bg-danger text-danger-text hover:bg-danger-dark",
+            "success" => "bg-success text-success-text hover:bg-success-dark",
+            "warning" => "bg-warning text-warning-text hover:bg-warning-dark",
+            "info" => "bg-info text-info-text hover:bg-info-dark",
+            _ => "bg-primary text-primary-text hover:bg-primary-dark" // Valor por defecto
+        };
+    }
+}

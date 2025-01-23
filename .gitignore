@@ -1,0 +1,67 @@
+# Ignora archivos generados por el IDE/Editor
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.vscode/
+
+# Ignora archivos de compilación y ejecución
+bin/
+obj/
+out/
+dist/
+wwwroot/css/
+wwwroot/js/
+wwwroot/lib/
+
+# Ignora archivos de configuración local
+appsettings.Development.json
+appsettings.Local.json
+
+# Ignora archivos de dependencias de Node.js
+node_modules/
+package-lock.json
+
+# Ignora archivos generados por Tailwind
+tailwind.config.js
+postcss.config.js
+*.css.map
+
+# Ignora archivos de logs y temporales
+*.log
+*.tmp
+*.temp
+
+# Ignora archivos de usuario específico
+*.DS_Store
+Thumbs.db
+
+# Ignora archivos de publicación
+publish/
+
+# Ignora archivos de migraciones de Entity Framework (si aplica)
+Migrations/
+
+# Ignora archivos de configuración de Rider (si usas JetBrains Rider)
+.idea/
+*.iml
+
+# Ignora archivos de configuración de Visual Studio Code
+.vscode/
+
+# Ignora archivos de configuración de Azure Functions (si aplica)
+local.settings.json
+
+# Ignora archivos de configuración de Docker (si aplica)
+docker-compose.override.yml
+docker-compose.vs.debug.yml
+docker-compose.vs.release.yml
+
+# Ignora archivos de configuración de pruebas (si aplica)
+TestResults/
+*.trx
+*.coverage
+
+# Ignora archivos de configuración de SonarQube (si aplica)
+.sonarqube/
