@@ -2,12 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copia los archivos de solución y proyectos
+# Copia el archivo de solución y los archivos de proyecto
+COPY ["Dunware.Blog/Dunware.Blog.sln", "."]
 COPY ["Dunware.Blog/Dunware.Blog/Dunware.Blog.csproj", "Dunware.Blog/"]
-COPY ["Dunware.Blog/Dunware.Blog.sln", "Dunware.Blog/"]
+COPY ["Dunware.Blog/Dunware.Blog.Client/Dunware.Blog.Client.csproj", "Dunware.Blog.Client/"]
+COPY ["Dunware.Blog.Data/Dunware.Blog.Data.csproj", "Dunware.Blog.Data/"]
 
 # Restaura las dependencias de todos los proyectos
-RUN dotnet restore "Dunware.Blog/Dunware.Blog.sln"
+RUN dotnet restore "Dunware.Blog.sln"
 
 # Copia el resto de los archivos
 COPY . .
