@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copia el archivo del proyecto y restaura las dependencias
-COPY ["Dunware.Blog/Dunware.Blog.csproj", "Dunware.Blog/"]
+COPY ["Dunware.Blog/Dunware.Blog/Dunware.Blog.csproj", "Dunware.Blog/"]
 RUN dotnet restore "Dunware.Blog/Dunware.Blog.csproj"
 
 # Copia el resto de los archivos y compila la aplicación
